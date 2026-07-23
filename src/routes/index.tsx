@@ -21,6 +21,9 @@ type PriceMap = Record<number, { rev: string; pub: string }>;
 type ViewMode = "all" | "cost" | "rev" | "pub";
 
 const STORAGE_KEY = "tarifario-ma2-precios-v1";
+const FAVS_KEY = "tarifario-ma2-favoritos-v1";
+const DEFAULT_FAVS = [3,4,5,6,12,13,15,17,19,20,24,35,42,44,47,50,56,59,64,65,69,70,75,87,88];
+const FAVS_CAT = "⭐ Más vendidos";
 
 function loadPrices(): PriceMap {
   if (typeof window === "undefined") return {};
@@ -29,6 +32,16 @@ function loadPrices(): PriceMap {
     return raw ? JSON.parse(raw) : {};
   } catch {
     return {};
+  }
+}
+
+function loadFavs(): number[] {
+  if (typeof window === "undefined") return DEFAULT_FAVS;
+  try {
+    const raw = localStorage.getItem(FAVS_KEY);
+    return raw ? JSON.parse(raw) : DEFAULT_FAVS;
+  } catch {
+    return DEFAULT_FAVS;
   }
 }
 
@@ -41,6 +54,7 @@ function hasWarning(s: Service) {
 
 function Index() {
   const [prices, setPrices] = useState<PriceMap>({});
+  const [favs, setFavs] = useState<number[]>([]);
   const [hydrated, setHydrated] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [askingPw, setAskingPw] = useState(false);
@@ -52,8 +66,17 @@ function Index() {
 
   useEffect(() => {
     setPrices(loadPrices());
+    setFavs(loadFavs());
     setHydrated(true);
   }, []);
+
+  useEffect(() => {
+    if (hydrated) localStorage.setItem(FAVS_KEY, JSON.stringify(favs));
+  }, [favs, hydrated]);
+
+  function toggleFav(id: number) {
+    setFavs((f) => (f.includes(id) ? f.filter((x) => x !== id) : [...f, id]));
+  }
 
   const grouped = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -66,10 +89,20 @@ function Index() {
     return Array.from(map.entries()).sort((a, b) => a[0].localeCompare(b[0], "es"));
   }, [search]);
 
+  const favServices = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    const byId = new Map(SERVICES.map((s) => [s.id, s] as const));
+    return favs
+      .map((id) => byId.get(id))
+      .filter((s): s is Service => !!s)
+      .filter((s) => !q || s.name.toLowerCase().includes(q));
+  }, [favs, search]);
+
   useEffect(() => {
     if (search.trim()) {
       const all: Record<string, boolean> = {};
       grouped.forEach(([c]) => (all[c] = true));
+      all[FAVS_CAT] = true;
       setOpenCats(all);
     }
   }, [search, grouped]);
@@ -195,6 +228,50 @@ function Index() {
           <p className="py-10 text-center text-sm text-muted-foreground">Sin resultados</p>
         )}
         <div className="space-y-2">
+          {(() => {
+            const open = !!openCats[FAVS_CAT];
+            return (
+              <section className="overflow-hidden rounded-2xl border border-primary/40 bg-card shadow-sm">
+                <button
+                  onClick={() => toggleCat(FAVS_CAT)}
+                  className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left active:bg-secondary"
+                >
+                  <span className="flex min-w-0 items-center gap-2">
+                    <span className="grid h-6 min-w-6 shrink-0 place-items-center rounded-full bg-primary px-1.5 text-[11px] font-bold text-primary-foreground">
+                      {favs.length}
+                    </span>
+                    <span className="truncate text-sm font-semibold">{FAVS_CAT}</span>
+                  </span>
+                  <span className={`shrink-0 text-primary transition-transform ${open ? "rotate-180" : ""}`} aria-hidden>▾</span>
+                </button>
+                {open && (
+                  favServices.length === 0 ? (
+                    <div className="border-t border-border px-4 py-6 text-center text-xs text-muted-foreground">
+                      Aún no hay servicios marcados
+                    </div>
+                  ) : (
+                    <ul className="divide-y divide-border border-t border-border">
+                      {favServices.map((s) => (
+                        <ServiceRow
+                          key={`fav-${s.id}`}
+                          s={s}
+                          view={view}
+                          editMode={editMode && !isBlocked(s)}
+                          hydrated={hydrated}
+                          rev={prices[s.id]?.rev ?? ""}
+                          pub={prices[s.id]?.pub ?? ""}
+                          onChange={updatePrice}
+                          isFav={favs.includes(s.id)}
+                          onToggleFav={toggleFav}
+                          showFavToggle={editMode}
+                        />
+                      ))}
+                    </ul>
+                  )
+                )}
+              </section>
+            );
+          })()}
           {grouped.map(([cat, items]) => {
             const open = !!openCats[cat];
             return (
@@ -228,6 +305,9 @@ function Index() {
                         rev={prices[s.id]?.rev ?? ""}
                         pub={prices[s.id]?.pub ?? ""}
                         onChange={updatePrice}
+                        isFav={favs.includes(s.id)}
+                        onToggleFav={toggleFav}
+                        showFavToggle={editMode}
                       />
                     ))}
                   </ul>
@@ -293,6 +373,9 @@ function ServiceRow({
   rev,
   pub,
   onChange,
+  isFav,
+  onToggleFav,
+  showFavToggle,
 }: {
   s: Service;
   view: ViewMode;
@@ -301,6 +384,9 @@ function ServiceRow({
   rev: string;
   pub: string;
   onChange: (id: number, field: "rev" | "pub", value: string) => void;
+  isFav: boolean;
+  onToggleFav: (id: number) => void;
+  showFavToggle: boolean;
 }) {
   const blocked = isBlocked(s);
   const warn = hasWarning(s);
@@ -320,6 +406,16 @@ function ServiceRow({
         </span>
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-1.5">
+            {showFavToggle && (
+              <button
+                type="button"
+                onClick={() => onToggleFav(s.id)}
+                aria-label={isFav ? "Quitar de más vendidos" : "Marcar como más vendido"}
+                className={`shrink-0 text-sm leading-none ${isFav ? "text-primary" : "text-muted-foreground/50"}`}
+              >
+                {isFav ? "★" : "☆"}
+              </button>
+            )}
             <span
               className={`font-medium leading-tight ${
                 blocked ? "text-destructive line-through" : "text-foreground"
