@@ -76,7 +76,7 @@ const STREAMING_SERVICES: StreamingService[] = [
   }
 ];
 
-export const Route = createFileRoute("/streaming")() ({
+export const Route = createFileRoute("/streaming") ({
   head: () => ({
     meta: [
       { title: "Streaming — MA² Digital" },

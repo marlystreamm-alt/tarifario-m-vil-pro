@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { BarChart3, Package, Users, RefreshCw, Plus, UserCheck, Users2, TrendingUp } from "lucide-react";
+import { Package, Users, RefreshCw, Plus, UserCheck, Users2, TrendingUp } from "lucide-react";
 
-export const Route = createFileRoute("/admin/dashboard")() ({
+export const Route = createFileRoute("/admin/dashboard") ({
   head: () => ({
     meta: [
       { title: "Dashboard — MA² Digital" },
@@ -115,7 +115,7 @@ function AdminDashboard() {
             {quickActions.map((action, idx) => (
               <Link
                 key={idx}
-                to={action.to}
+                to={action.to as any}
                 className="flex flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-card p-4 shadow-sm transition-all active:scale-95 hover:border-primary"
               >
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 text-primary">

@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 
-export const Route = createFileRoute("/admin/reportes")() ({
+export const Route = createFileRoute("/admin/reportes") ({
   head: () => ({
     meta: [
       { title: "Reportes — MA² Digital" },

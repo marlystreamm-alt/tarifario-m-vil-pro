@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppHeader } from "@/components/NavBar";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
-export const Route = createFileRoute("/")() ({
+export const Route = createFileRoute("/") ({
   head: () => ({
     meta: [
       { title: "MA² Digital — Streaming y trámites" },
@@ -26,6 +26,7 @@ function Landing() {
         <section className="space-y-3">
           <h2 className="text-2xl font-bold leading-tight">¿Qué necesitas hoy?</h2>
           <div className="grid gap-3">
+            {/* Streaming Card */}
             <Link
               to="/streaming"
               className="group overflow-hidden rounded-3xl border border-primary/30 bg-gradient-to-br from-primary/10 via-card to-card p-6 shadow-sm transition-all active:scale-95 hover:border-primary/50"
@@ -38,6 +39,7 @@ function Landing() {
               </div>
             </Link>
 
+            {/* Trámites Card */}
             <Link
               to="/tramites"
               className="group overflow-hidden rounded-3xl border border-secondary/50 bg-gradient-to-br from-secondary/10 via-card to-card p-6 shadow-sm transition-all active:scale-95 hover:border-secondary"
