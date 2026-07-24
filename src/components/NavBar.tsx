@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router";
 
-const LINKS = [
+type NavLink = { to: "/" | "/tramites" | "/consultar" | "/admin"; label: string; exact?: boolean };
+const LINKS: NavLink[] = [
   { to: "/", label: "Inicio", exact: true },
   { to: "/tramites", label: "Trámites" },
   { to: "/consultar", label: "Consultar pedido" },
   { to: "/admin", label: "Administrar" },
-] as const;
+];
 
 export function NavBar() {
   return (
