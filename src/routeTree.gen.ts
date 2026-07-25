@@ -14,6 +14,7 @@ import { Route as StreamingRouteImport } from './routes/streaming'
 import { Route as ConsultarRouteImport } from './routes/consultar'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminUsuariosRouteImport } from './routes/admin/usuarios'
 import { Route as AdminRevendedoresRouteImport } from './routes/admin/revendedores'
 import { Route as AdminReportesRouteImport } from './routes/admin/reportes'
 import { Route as AdminPedidosRouteImport } from './routes/admin/pedidos'
@@ -46,6 +47,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminUsuariosRoute = AdminUsuariosRouteImport.update({
+  id: '/usuarios',
+  path: '/usuarios',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminRevendedoresRoute = AdminRevendedoresRouteImport.update({
   id: '/revendedores',
@@ -96,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/reportes': typeof AdminReportesRoute
   '/admin/revendedores': typeof AdminRevendedoresRoute
+  '/admin/usuarios': typeof AdminUsuariosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/reportes': typeof AdminReportesRoute
   '/admin/revendedores': typeof AdminRevendedoresRoute
+  '/admin/usuarios': typeof AdminUsuariosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -125,6 +133,7 @@ export interface FileRoutesById {
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/reportes': typeof AdminReportesRoute
   '/admin/revendedores': typeof AdminRevendedoresRoute
+  '/admin/usuarios': typeof AdminUsuariosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,6 +150,7 @@ export interface FileRouteTypes {
     | '/admin/pedidos'
     | '/admin/reportes'
     | '/admin/revendedores'
+    | '/admin/usuarios'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -155,6 +165,7 @@ export interface FileRouteTypes {
     | '/admin/pedidos'
     | '/admin/reportes'
     | '/admin/revendedores'
+    | '/admin/usuarios'
   id:
     | '__root__'
     | '/'
@@ -169,6 +180,7 @@ export interface FileRouteTypes {
     | '/admin/pedidos'
     | '/admin/reportes'
     | '/admin/revendedores'
+    | '/admin/usuarios'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -215,6 +227,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/usuarios': {
+      id: '/admin/usuarios'
+      path: '/usuarios'
+      fullPath: '/admin/usuarios'
+      preLoaderRoute: typeof AdminUsuariosRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/revendedores': {
       id: '/admin/revendedores'
@@ -276,6 +295,7 @@ interface AdminRouteChildren {
   AdminPedidosRoute: typeof AdminPedidosRoute
   AdminReportesRoute: typeof AdminReportesRoute
   AdminRevendedoresRoute: typeof AdminRevendedoresRoute
+  AdminUsuariosRoute: typeof AdminUsuariosRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
@@ -286,6 +306,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminPedidosRoute: AdminPedidosRoute,
   AdminReportesRoute: AdminReportesRoute,
   AdminRevendedoresRoute: AdminRevendedoresRoute,
+  AdminUsuariosRoute: AdminUsuariosRoute,
 }
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
