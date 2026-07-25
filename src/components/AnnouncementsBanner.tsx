@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Info, AlertTriangle, AlertOctagon, Megaphone, ChevronLeft, ChevronRight } from "lucide-react";
 import { getActiveAnnouncements, type Announcement, type AnnouncementType } from "@/lib/announcements";
 
-const TYPE_STYLES: Record<AnnouncementType, { wrap: string; icon: JSX.Element; label: string }> = {
+const TYPE_STYLES: Record<AnnouncementType, { wrap: string; icon: ReactNode; label: string }> = {
   info: {
     wrap: "border-primary/30 bg-primary/5 text-foreground",
     icon: <Info className="h-4 w-4 text-primary" />,
