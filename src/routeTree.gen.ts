@@ -10,13 +10,26 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TramitesRouteImport } from './routes/tramites'
+import { Route as StreamingRouteImport } from './routes/streaming'
 import { Route as ConsultarRouteImport } from './routes/consultar'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRevendedoresRouteImport } from './routes/admin/revendedores'
+import { Route as AdminReportesRouteImport } from './routes/admin/reportes'
+import { Route as AdminPedidosRouteImport } from './routes/admin/pedidos'
+import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
+import { Route as AdminCuentasRouteImport } from './routes/admin/cuentas'
+import { Route as AdminClientesRouteImport } from './routes/admin/clientes'
+import { Route as AdminAnunciosRouteImport } from './routes/admin/anuncios'
 
 const TramitesRoute = TramitesRouteImport.update({
   id: '/tramites',
   path: '/tramites',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StreamingRoute = StreamingRouteImport.update({
+  id: '/streaming',
+  path: '/streaming',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConsultarRoute = ConsultarRouteImport.update({
@@ -34,38 +47,135 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminRevendedoresRoute = AdminRevendedoresRouteImport.update({
+  id: '/revendedores',
+  path: '/revendedores',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminReportesRoute = AdminReportesRouteImport.update({
+  id: '/reportes',
+  path: '/reportes',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPedidosRoute = AdminPedidosRouteImport.update({
+  id: '/pedidos',
+  path: '/pedidos',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminCuentasRoute = AdminCuentasRouteImport.update({
+  id: '/cuentas',
+  path: '/cuentas',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminClientesRoute = AdminClientesRouteImport.update({
+  id: '/clientes',
+  path: '/clientes',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminAnunciosRoute = AdminAnunciosRouteImport.update({
+  id: '/anuncios',
+  path: '/anuncios',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/consultar': typeof ConsultarRoute
+  '/streaming': typeof StreamingRoute
   '/tramites': typeof TramitesRoute
+  '/admin/anuncios': typeof AdminAnunciosRoute
+  '/admin/clientes': typeof AdminClientesRoute
+  '/admin/cuentas': typeof AdminCuentasRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/pedidos': typeof AdminPedidosRoute
+  '/admin/reportes': typeof AdminReportesRoute
+  '/admin/revendedores': typeof AdminRevendedoresRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/consultar': typeof ConsultarRoute
+  '/streaming': typeof StreamingRoute
   '/tramites': typeof TramitesRoute
+  '/admin/anuncios': typeof AdminAnunciosRoute
+  '/admin/clientes': typeof AdminClientesRoute
+  '/admin/cuentas': typeof AdminCuentasRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/pedidos': typeof AdminPedidosRoute
+  '/admin/reportes': typeof AdminReportesRoute
+  '/admin/revendedores': typeof AdminRevendedoresRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
+  '/admin': typeof AdminRouteWithChildren
   '/consultar': typeof ConsultarRoute
+  '/streaming': typeof StreamingRoute
   '/tramites': typeof TramitesRoute
+  '/admin/anuncios': typeof AdminAnunciosRoute
+  '/admin/clientes': typeof AdminClientesRoute
+  '/admin/cuentas': typeof AdminCuentasRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/pedidos': typeof AdminPedidosRoute
+  '/admin/reportes': typeof AdminReportesRoute
+  '/admin/revendedores': typeof AdminRevendedoresRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/consultar' | '/tramites'
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/consultar'
+    | '/streaming'
+    | '/tramites'
+    | '/admin/anuncios'
+    | '/admin/clientes'
+    | '/admin/cuentas'
+    | '/admin/dashboard'
+    | '/admin/pedidos'
+    | '/admin/reportes'
+    | '/admin/revendedores'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/consultar' | '/tramites'
-  id: '__root__' | '/' | '/admin' | '/consultar' | '/tramites'
+  to:
+    | '/'
+    | '/admin'
+    | '/consultar'
+    | '/streaming'
+    | '/tramites'
+    | '/admin/anuncios'
+    | '/admin/clientes'
+    | '/admin/cuentas'
+    | '/admin/dashboard'
+    | '/admin/pedidos'
+    | '/admin/reportes'
+    | '/admin/revendedores'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/consultar'
+    | '/streaming'
+    | '/tramites'
+    | '/admin/anuncios'
+    | '/admin/clientes'
+    | '/admin/cuentas'
+    | '/admin/dashboard'
+    | '/admin/pedidos'
+    | '/admin/reportes'
+    | '/admin/revendedores'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
+  AdminRoute: typeof AdminRouteWithChildren
   ConsultarRoute: typeof ConsultarRoute
+  StreamingRoute: typeof StreamingRoute
   TramitesRoute: typeof TramitesRoute
 }
 
@@ -76,6 +186,13 @@ declare module '@tanstack/react-router' {
       path: '/tramites'
       fullPath: '/tramites'
       preLoaderRoute: typeof TramitesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/streaming': {
+      id: '/streaming'
+      path: '/streaming'
+      fullPath: '/streaming'
+      preLoaderRoute: typeof StreamingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/consultar': {
@@ -99,13 +216,85 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/revendedores': {
+      id: '/admin/revendedores'
+      path: '/revendedores'
+      fullPath: '/admin/revendedores'
+      preLoaderRoute: typeof AdminRevendedoresRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/reportes': {
+      id: '/admin/reportes'
+      path: '/reportes'
+      fullPath: '/admin/reportes'
+      preLoaderRoute: typeof AdminReportesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/pedidos': {
+      id: '/admin/pedidos'
+      path: '/pedidos'
+      fullPath: '/admin/pedidos'
+      preLoaderRoute: typeof AdminPedidosRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/cuentas': {
+      id: '/admin/cuentas'
+      path: '/cuentas'
+      fullPath: '/admin/cuentas'
+      preLoaderRoute: typeof AdminCuentasRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/clientes': {
+      id: '/admin/clientes'
+      path: '/clientes'
+      fullPath: '/admin/clientes'
+      preLoaderRoute: typeof AdminClientesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/anuncios': {
+      id: '/admin/anuncios'
+      path: '/anuncios'
+      fullPath: '/admin/anuncios'
+      preLoaderRoute: typeof AdminAnunciosRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
+interface AdminRouteChildren {
+  AdminAnunciosRoute: typeof AdminAnunciosRoute
+  AdminClientesRoute: typeof AdminClientesRoute
+  AdminCuentasRoute: typeof AdminCuentasRoute
+  AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminPedidosRoute: typeof AdminPedidosRoute
+  AdminReportesRoute: typeof AdminReportesRoute
+  AdminRevendedoresRoute: typeof AdminRevendedoresRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminAnunciosRoute: AdminAnunciosRoute,
+  AdminClientesRoute: AdminClientesRoute,
+  AdminCuentasRoute: AdminCuentasRoute,
+  AdminDashboardRoute: AdminDashboardRoute,
+  AdminPedidosRoute: AdminPedidosRoute,
+  AdminReportesRoute: AdminReportesRoute,
+  AdminRevendedoresRoute: AdminRevendedoresRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
+  AdminRoute: AdminRouteWithChildren,
   ConsultarRoute: ConsultarRoute,
+  StreamingRoute: StreamingRoute,
   TramitesRoute: TramitesRoute,
 }
 export const routeTree = rootRouteImport

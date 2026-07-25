@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppHeader } from "@/components/NavBar";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
+import { AnnouncementsBanner } from "@/components/AnnouncementsBanner";
 
 export const Route = createFileRoute("/") ({
   head: () => ({
@@ -23,6 +24,7 @@ function Landing() {
     <div className="min-h-screen bg-background text-foreground">
       <AppHeader title="MA² Digital" subtitle="Streaming y trámites digitales" showLoginIcon />
       <main className="mx-auto max-w-xl px-4 pb-16 pt-6">
+        <AnnouncementsBanner />
         <section className="space-y-3">
           <h2 className="text-2xl font-bold leading-tight">¿Qué necesitas hoy?</h2>
           <div className="grid gap-3">
