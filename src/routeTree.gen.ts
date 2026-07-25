@@ -20,6 +20,7 @@ import { Route as AdminPedidosRouteImport } from './routes/admin/pedidos'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 import { Route as AdminCuentasRouteImport } from './routes/admin/cuentas'
 import { Route as AdminClientesRouteImport } from './routes/admin/clientes'
+import { Route as AdminAnunciosRouteImport } from './routes/admin/anuncios'
 
 const TramitesRoute = TramitesRouteImport.update({
   id: '/tramites',
@@ -76,6 +77,11 @@ const AdminClientesRoute = AdminClientesRouteImport.update({
   path: '/clientes',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAnunciosRoute = AdminAnunciosRouteImport.update({
+  id: '/anuncios',
+  path: '/anuncios',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -83,6 +89,7 @@ export interface FileRoutesByFullPath {
   '/consultar': typeof ConsultarRoute
   '/streaming': typeof StreamingRoute
   '/tramites': typeof TramitesRoute
+  '/admin/anuncios': typeof AdminAnunciosRoute
   '/admin/clientes': typeof AdminClientesRoute
   '/admin/cuentas': typeof AdminCuentasRoute
   '/admin/dashboard': typeof AdminDashboardRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByTo {
   '/consultar': typeof ConsultarRoute
   '/streaming': typeof StreamingRoute
   '/tramites': typeof TramitesRoute
+  '/admin/anuncios': typeof AdminAnunciosRoute
   '/admin/clientes': typeof AdminClientesRoute
   '/admin/cuentas': typeof AdminCuentasRoute
   '/admin/dashboard': typeof AdminDashboardRoute
@@ -110,6 +118,7 @@ export interface FileRoutesById {
   '/consultar': typeof ConsultarRoute
   '/streaming': typeof StreamingRoute
   '/tramites': typeof TramitesRoute
+  '/admin/anuncios': typeof AdminAnunciosRoute
   '/admin/clientes': typeof AdminClientesRoute
   '/admin/cuentas': typeof AdminCuentasRoute
   '/admin/dashboard': typeof AdminDashboardRoute
@@ -125,6 +134,7 @@ export interface FileRouteTypes {
     | '/consultar'
     | '/streaming'
     | '/tramites'
+    | '/admin/anuncios'
     | '/admin/clientes'
     | '/admin/cuentas'
     | '/admin/dashboard'
@@ -138,6 +148,7 @@ export interface FileRouteTypes {
     | '/consultar'
     | '/streaming'
     | '/tramites'
+    | '/admin/anuncios'
     | '/admin/clientes'
     | '/admin/cuentas'
     | '/admin/dashboard'
@@ -151,6 +162,7 @@ export interface FileRouteTypes {
     | '/consultar'
     | '/streaming'
     | '/tramites'
+    | '/admin/anuncios'
     | '/admin/clientes'
     | '/admin/cuentas'
     | '/admin/dashboard'
@@ -246,10 +258,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminClientesRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/anuncios': {
+      id: '/admin/anuncios'
+      path: '/anuncios'
+      fullPath: '/admin/anuncios'
+      preLoaderRoute: typeof AdminAnunciosRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
+  AdminAnunciosRoute: typeof AdminAnunciosRoute
   AdminClientesRoute: typeof AdminClientesRoute
   AdminCuentasRoute: typeof AdminCuentasRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
@@ -259,6 +279,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAnunciosRoute: AdminAnunciosRoute,
   AdminClientesRoute: AdminClientesRoute,
   AdminCuentasRoute: AdminCuentasRoute,
   AdminDashboardRoute: AdminDashboardRoute,
