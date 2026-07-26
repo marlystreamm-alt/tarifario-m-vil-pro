@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Package, Users, RefreshCw, Plus, UserCheck, Users2, TrendingUp, Megaphone, ShieldCheck } from "lucide-react";
+import { Package, Users, RefreshCw, Plus, UserCheck, Users2, TrendingUp, Megaphone, ShieldCheck, FileLock2 } from "lucide-react";
 
 export const Route = createFileRoute("/admin/dashboard") ({
   head: () => ({
@@ -60,6 +60,7 @@ function AdminDashboard() {
     { icon: <TrendingUp className="h-5 w-5" />, label: "Reportes", to: "/admin/reportes" },
     { icon: <Megaphone className="h-5 w-5" />, label: "Anuncios", to: "/admin/anuncios" },
     { icon: <ShieldCheck className="h-5 w-5" />, label: "Usuarios", to: "/admin/usuarios" },
+    { icon: <FileLock2 className="h-5 w-5" />, label: "Entrega protegida", to: "/admin/entregas" },
   ];
 
   return (
