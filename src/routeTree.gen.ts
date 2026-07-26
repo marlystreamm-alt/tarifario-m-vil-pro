@@ -49,44 +49,44 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminUsuariosRoute = AdminUsuariosRouteImport.update({
-  id: '/usuarios',
-  path: '/usuarios',
-  getParentRoute: () => AdminRoute,
+  id: '/admin/usuarios',
+  path: '/admin/usuarios',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRevendedoresRoute = AdminRevendedoresRouteImport.update({
-  id: '/revendedores',
-  path: '/revendedores',
-  getParentRoute: () => AdminRoute,
+  id: '/admin/revendedores',
+  path: '/admin/revendedores',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminReportesRoute = AdminReportesRouteImport.update({
-  id: '/reportes',
-  path: '/reportes',
-  getParentRoute: () => AdminRoute,
+  id: '/admin/reportes',
+  path: '/admin/reportes',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminPedidosRoute = AdminPedidosRouteImport.update({
-  id: '/pedidos',
-  path: '/pedidos',
-  getParentRoute: () => AdminRoute,
+  id: '/admin/pedidos',
+  path: '/admin/pedidos',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => AdminRoute,
+  id: '/admin/dashboard',
+  path: '/admin/dashboard',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminCuentasRoute = AdminCuentasRouteImport.update({
-  id: '/cuentas',
-  path: '/cuentas',
-  getParentRoute: () => AdminRoute,
+  id: '/admin/cuentas',
+  path: '/admin/cuentas',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminClientesRoute = AdminClientesRouteImport.update({
-  id: '/clientes',
-  path: '/clientes',
-  getParentRoute: () => AdminRoute,
+  id: '/admin/clientes',
+  path: '/admin/clientes',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AdminAnunciosRoute = AdminAnunciosRouteImport.update({
-  id: '/anuncios',
-  path: '/anuncios',
-  getParentRoute: () => AdminRoute,
+  id: '/admin/anuncios',
+  path: '/admin/anuncios',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -188,6 +188,14 @@ export interface RootRouteChildren {
   ConsultarRoute: typeof ConsultarRoute
   StreamingRoute: typeof StreamingRoute
   TramitesRoute: typeof TramitesRoute
+  AdminAnunciosRoute: typeof AdminAnunciosRoute
+  AdminClientesRoute: typeof AdminClientesRoute
+  AdminCuentasRoute: typeof AdminCuentasRoute
+  AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminPedidosRoute: typeof AdminPedidosRoute
+  AdminReportesRoute: typeof AdminReportesRoute
+  AdminRevendedoresRoute: typeof AdminRevendedoresRoute
+  AdminUsuariosRoute: typeof AdminUsuariosRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -230,59 +238,59 @@ declare module '@tanstack/react-router' {
     }
     '/admin/usuarios': {
       id: '/admin/usuarios'
-      path: '/usuarios'
+      path: '/admin/usuarios'
       fullPath: '/admin/usuarios'
       preLoaderRoute: typeof AdminUsuariosRouteImport
-      parentRoute: typeof AdminRoute
+      parentRoute: typeof rootRouteImport
     }
     '/admin/revendedores': {
       id: '/admin/revendedores'
-      path: '/revendedores'
+      path: '/admin/revendedores'
       fullPath: '/admin/revendedores'
       preLoaderRoute: typeof AdminRevendedoresRouteImport
-      parentRoute: typeof AdminRoute
+      parentRoute: typeof rootRouteImport
     }
     '/admin/reportes': {
       id: '/admin/reportes'
-      path: '/reportes'
+      path: '/admin/reportes'
       fullPath: '/admin/reportes'
       preLoaderRoute: typeof AdminReportesRouteImport
-      parentRoute: typeof AdminRoute
+      parentRoute: typeof rootRouteImport
     }
     '/admin/pedidos': {
       id: '/admin/pedidos'
-      path: '/pedidos'
+      path: '/admin/pedidos'
       fullPath: '/admin/pedidos'
       preLoaderRoute: typeof AdminPedidosRouteImport
-      parentRoute: typeof AdminRoute
+      parentRoute: typeof rootRouteImport
     }
     '/admin/dashboard': {
       id: '/admin/dashboard'
-      path: '/dashboard'
+      path: '/admin/dashboard'
       fullPath: '/admin/dashboard'
       preLoaderRoute: typeof AdminDashboardRouteImport
-      parentRoute: typeof AdminRoute
+      parentRoute: typeof rootRouteImport
     }
     '/admin/cuentas': {
       id: '/admin/cuentas'
-      path: '/cuentas'
+      path: '/admin/cuentas'
       fullPath: '/admin/cuentas'
       preLoaderRoute: typeof AdminCuentasRouteImport
-      parentRoute: typeof AdminRoute
+      parentRoute: typeof rootRouteImport
     }
     '/admin/clientes': {
       id: '/admin/clientes'
-      path: '/clientes'
+      path: '/admin/clientes'
       fullPath: '/admin/clientes'
       preLoaderRoute: typeof AdminClientesRouteImport
-      parentRoute: typeof AdminRoute
+      parentRoute: typeof rootRouteImport
     }
     '/admin/anuncios': {
       id: '/admin/anuncios'
-      path: '/anuncios'
+      path: '/admin/anuncios'
       fullPath: '/admin/anuncios'
       preLoaderRoute: typeof AdminAnunciosRouteImport
-      parentRoute: typeof AdminRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
@@ -292,6 +300,14 @@ const rootRouteChildren: RootRouteChildren = {
   ConsultarRoute: ConsultarRoute,
   StreamingRoute: StreamingRoute,
   TramitesRoute: TramitesRoute,
+  AdminAnunciosRoute: AdminAnunciosRoute,
+  AdminClientesRoute: AdminClientesRoute,
+  AdminCuentasRoute: AdminCuentasRoute,
+  AdminDashboardRoute: AdminDashboardRoute,
+  AdminPedidosRoute: AdminPedidosRoute,
+  AdminReportesRoute: AdminReportesRoute,
+  AdminRevendedoresRoute: AdminRevendedoresRoute,
+  AdminUsuariosRoute: AdminUsuariosRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 export const routeTree = rootRouteImport
