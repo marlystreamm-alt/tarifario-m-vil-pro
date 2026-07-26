@@ -15,14 +15,14 @@ export const Route = createFileRoute("/admin") ({
 
 function AdminLogin() {
   const [role, setRole] = useState<"admin" | "reseller" | null>(null);
+  const [login, setLogin] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleContinue = () => {
-    if (role === "admin") {
-      navigate({ to: "/admin/dashboard" });
-    } else if (role === "reseller") {
-      navigate({ to: "/admin/dashboard" });
-    }
+  // Acceso demo: siempre navega, aunque los campos estén vacíos.
+  const handleContinue = (e?: React.FormEvent) => {
+    e?.preventDefault();
+    navigate({ to: "/admin/dashboard" });
   };
 
   if (!role) {
@@ -78,18 +78,22 @@ function AdminLogin() {
           </p>
         </div>
 
-        <div className="space-y-3">
+        <form onSubmit={handleContinue} className="space-y-3">
           <div>
             <label className="block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
               Usuario
             </label>
             <input
-              type="email"
+              type="text"
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
               placeholder="correo@ejemplo.com"
-              disabled
-              className="mt-1 w-full rounded-lg border border-border bg-secondary px-3 py-2 text-sm placeholder:text-muted-foreground/50 disabled:opacity-60"
+              autoComplete="username"
+              className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground/50"
             />
-            <p className="mt-1 text-[10px] text-muted-foreground">TODO: Conectar con Supabase Auth</p>
+            <p className="mt-1 text-[10px] text-muted-foreground">
+              Acceso demo: puedes continuar sin llenar los campos.
+            </p>
           </div>
 
           <div>
@@ -98,19 +102,21 @@ function AdminLogin() {
             </label>
             <input
               type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              disabled
-              className="mt-1 w-full rounded-lg border border-border bg-secondary px-3 py-2 text-sm placeholder:text-muted-foreground/50 disabled:opacity-60"
+              autoComplete="current-password"
+              className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground/50"
             />
           </div>
-        </div>
 
-        <button
-          onClick={handleContinue}
-          className="w-full rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm active:scale-95"
-        >
-          Continuar (Demo)
-        </button>
+          <button
+            type="submit"
+            className="w-full rounded-full bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm active:scale-95"
+          >
+            Continuar (Demo)
+          </button>
+        </form>
 
         <button
           onClick={() => setRole(null)}

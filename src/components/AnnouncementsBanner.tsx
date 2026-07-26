@@ -1,6 +1,11 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Info, AlertTriangle, AlertOctagon, Megaphone, ChevronLeft, ChevronRight } from "lucide-react";
-import { getActiveAnnouncements, type Announcement, type AnnouncementType } from "@/lib/announcements";
+import {
+  getActiveAnnouncements,
+  subscribeAnnouncements,
+  type Announcement,
+  type AnnouncementType,
+} from "@/lib/announcements";
 
 const TYPE_STYLES: Record<AnnouncementType, { wrap: string; icon: ReactNode; label: string }> = {
   info: {
@@ -52,8 +57,14 @@ export function AnnouncementsBanner() {
   const [idx, setIdx] = useState(0);
 
   useEffect(() => {
-    setItems(getActiveAnnouncements());
+    const load = () => setItems(getActiveAnnouncements());
+    load();
+    return subscribeAnnouncements(load);
   }, []);
+
+  useEffect(() => {
+    if (idx >= items.length) setIdx(0);
+  }, [items.length, idx]);
 
   useEffect(() => {
     if (items.length <= 1) return;
