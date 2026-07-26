@@ -32,7 +32,7 @@ export const Route = createFileRoute("/admin/usuarios")({
   component: UsuariosAdmin,
 });
 
-const ROLES: UserRole[] = ["admin", "assistant", "provider"];
+const ROLES: UserRole[] = ["admin", "assistant", "reseller", "provider"];
 
 function UsuariosAdmin() {
   const [items, setItems] = useState<InternalUser[]>([]);
@@ -58,6 +58,8 @@ function UsuariosAdmin() {
     setForm({
       name: u.name,
       login: u.login,
+      email: u.email ?? "",
+      password: u.password ?? "",
       phone: u.phone ?? "",
       role: u.role,
       active: u.active,
@@ -135,7 +137,7 @@ function UsuariosAdmin() {
   };
 
   const grouped = useMemo(() => {
-    const g: Record<UserRole, InternalUser[]> = { admin: [], assistant: [], provider: [] };
+    const g: Record<UserRole, InternalUser[]> = { admin: [], assistant: [], reseller: [], provider: [] };
     for (const u of items) g[u.role].push(u);
     return g;
   }, [items]);
@@ -232,7 +234,7 @@ function UsuariosAdmin() {
                 <input
                   type="text"
                   value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
                   className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm"
                   maxLength={120}
                   required
@@ -240,17 +242,45 @@ function UsuariosAdmin() {
               </div>
               <div>
                 <label className="block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-                  Correo o usuario de acceso *
+                  Usuario de acceso *
                 </label>
                 <input
                   type="text"
                   value={form.login}
-                  onChange={(e) => setForm({ ...form, login: e.target.value })}
+                  onChange={(e) => setForm((p) => ({ ...p, login: e.target.value }))}
                   className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm"
-                  placeholder="correo@ejemplo.com"
+                  placeholder="usuario o correo"
                   maxLength={120}
                   required
                 />
+              </div>
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                <div>
+                  <label className="block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                    Correo (opcional)
+                  </label>
+                  <input
+                    type="email"
+                    value={form.email ?? ""}
+                    onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
+                    className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm"
+                    placeholder="correo@ejemplo.com"
+                    maxLength={120}
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                    Contraseña (demo)
+                  </label>
+                  <input
+                    type="text"
+                    value={form.password ?? ""}
+                    onChange={(e) => setForm((p) => ({ ...p, password: e.target.value }))}
+                    autoComplete="new-password"
+                    className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm"
+                    maxLength={60}
+                  />
+                </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
@@ -260,7 +290,7 @@ function UsuariosAdmin() {
                   <input
                     type="tel"
                     value={form.phone ?? ""}
-                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))}
                     className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm"
                     maxLength={40}
                   />
@@ -282,22 +312,26 @@ function UsuariosAdmin() {
                   </select>
                 </div>
               </div>
-              <label className="flex items-center gap-2 text-sm">
-                <input
-                  type="checkbox"
-                  checked={form.active}
-                  onChange={(e) => setForm({ ...form, active: e.target.checked })}
-                  className="h-4 w-4 rounded border-border"
-                />
-                <span>Usuario activo</span>
-              </label>
+              <div>
+                <label className="block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+                  Estado
+                </label>
+                <select
+                  value={form.active ? "active" : "inactive"}
+                  onChange={(e) => setForm((p) => ({ ...p, active: e.target.value === "active" }))}
+                  className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm"
+                >
+                  <option value="active">Activo</option>
+                  <option value="inactive">Inactivo</option>
+                </select>
+              </div>
               <div>
                 <label className="block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
                   Notas (opcional)
                 </label>
                 <textarea
                   value={form.notes ?? ""}
-                  onChange={(e) => setForm({ ...form, notes: e.target.value })}
+                  onChange={(e) => setForm((p) => ({ ...p, notes: e.target.value }))}
                   rows={2}
                   maxLength={500}
                   className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-sm"
