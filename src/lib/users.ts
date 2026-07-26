@@ -4,7 +4,7 @@
 // Supabase (tablas `users` + `user_roles` + tabla de permisos) sin cambiar la
 // interfaz. Toda la UI debe importar SOLO las funciones exportadas aquí.
 
-export type UserRole = "admin" | "assistant" | "provider";
+export type UserRole = "admin" | "assistant" | "reseller" | "provider";
 
 export type PermissionKey =
   | "viewInventory"
@@ -26,6 +26,9 @@ export interface InternalUser {
   id: string;
   name: string;
   login: string;
+  email?: string | null;
+  /** Solo demo local; al conectar Supabase Auth se elimina de este repositorio. */
+  password?: string | null;
   phone?: string | null;
   role: UserRole;
   active: boolean;
@@ -42,6 +45,7 @@ const STORAGE_KEY = "ma2-users-v1";
 export const ROLE_LABEL: Record<UserRole, string> = {
   admin: "Administrador",
   assistant: "Asistente",
+  reseller: "Revendedor",
   provider: "Proveedor",
 };
 
@@ -80,6 +84,14 @@ export function defaultPermissionsForRole(role: UserRole): Permissions {
       editOrders: true,
       viewClients: true,
       manageSupport: true,
+    };
+  }
+  if (role === "reseller") {
+    return {
+      ...allPerms(false),
+      createOrders: true,
+      editOrders: true,
+      viewClients: true,
     };
   }
   return {
@@ -148,6 +160,9 @@ export function validateUser(
   if (input.login.length > 120) return "El correo o usuario es demasiado largo.";
   if (input.name.length > 120) return "El nombre es demasiado largo.";
   if (input.phone && input.phone.length > 40) return "El teléfono es demasiado largo.";
+  if (input.email && input.email.length > 120) return "El correo es demasiado largo.";
+  if (input.email && input.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email.trim()))
+    return "El correo no es válido.";
   if (input.notes && input.notes.length > 500) return "Las notas son demasiado largas.";
   if (!input.role) return "Selecciona un rol.";
   const login = input.login.trim().toLowerCase();
@@ -208,6 +223,8 @@ export function emptyUserInput(role: UserRole = "assistant"): InternalUserInput 
   return {
     name: "",
     login: "",
+    email: "",
+    password: "",
     phone: "",
     role,
     active: true,

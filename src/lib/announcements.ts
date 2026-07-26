@@ -22,7 +22,25 @@ export interface Announcement {
 export type AnnouncementInput = Omit<Announcement, "id" | "createdAt" | "updatedAt">;
 
 const STORAGE_KEY = "ma2-announcements-v1";
-const SEED_FLAG_KEY = "ma2-announcements-seeded-v1";
+
+export const ANNOUNCEMENTS_EVENT = "ma2-announcements-changed";
+
+function emitChange(): void {
+  if (!isBrowser()) return;
+  window.dispatchEvent(new CustomEvent(ANNOUNCEMENTS_EVENT));
+}
+
+/** Suscripción reactiva: la UI se actualiza sin recargar. */
+export function subscribeAnnouncements(cb: () => void): () => void {
+  if (!isBrowser()) return () => {};
+  const handler = () => cb();
+  window.addEventListener(ANNOUNCEMENTS_EVENT, handler);
+  window.addEventListener("storage", handler);
+  return () => {
+    window.removeEventListener(ANNOUNCEMENTS_EVENT, handler);
+    window.removeEventListener("storage", handler);
+  };
+}
 
 function nowIso(): string {
   return new Date().toISOString();
@@ -55,13 +73,14 @@ function writeRaw(list: Announcement[]): void {
   } catch {
     /* noop */
   }
+  emitChange();
 }
 
 function seedIfNeeded(): void {
   if (!isBrowser()) return;
-  if (localStorage.getItem(SEED_FLAG_KEY)) return;
   const existing = readRaw();
-  if (existing.length === 0) {
+  if (existing.length > 0) return;
+  {
     const t = nowIso();
     const seed: Announcement[] = [
       {
@@ -91,7 +110,6 @@ function seedIfNeeded(): void {
     ];
     writeRaw(seed);
   }
-  localStorage.setItem(SEED_FLAG_KEY, "1");
 }
 
 export function listAnnouncements(): Announcement[] {
