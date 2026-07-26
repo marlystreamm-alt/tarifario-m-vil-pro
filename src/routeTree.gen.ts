@@ -18,6 +18,7 @@ import { Route as AdminUsuariosRouteImport } from './routes/admin/usuarios'
 import { Route as AdminRevendedoresRouteImport } from './routes/admin/revendedores'
 import { Route as AdminReportesRouteImport } from './routes/admin/reportes'
 import { Route as AdminPedidosRouteImport } from './routes/admin/pedidos'
+import { Route as AdminEntregasRouteImport } from './routes/admin/entregas'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 import { Route as AdminCuentasRouteImport } from './routes/admin/cuentas'
 import { Route as AdminClientesRouteImport } from './routes/admin/clientes'
@@ -68,6 +69,11 @@ const AdminPedidosRoute = AdminPedidosRouteImport.update({
   path: '/admin/pedidos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminEntregasRoute = AdminEntregasRouteImport.update({
+  id: '/admin/entregas',
+  path: '/admin/entregas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
   id: '/admin/dashboard',
   path: '/admin/dashboard',
@@ -98,6 +104,7 @@ export interface FileRoutesByFullPath {
   '/admin/clientes': typeof AdminClientesRoute
   '/admin/cuentas': typeof AdminCuentasRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/entregas': typeof AdminEntregasRoute
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/reportes': typeof AdminReportesRoute
   '/admin/revendedores': typeof AdminRevendedoresRoute
@@ -113,6 +120,7 @@ export interface FileRoutesByTo {
   '/admin/clientes': typeof AdminClientesRoute
   '/admin/cuentas': typeof AdminCuentasRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/entregas': typeof AdminEntregasRoute
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/reportes': typeof AdminReportesRoute
   '/admin/revendedores': typeof AdminRevendedoresRoute
@@ -129,6 +137,7 @@ export interface FileRoutesById {
   '/admin/clientes': typeof AdminClientesRoute
   '/admin/cuentas': typeof AdminCuentasRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/entregas': typeof AdminEntregasRoute
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/reportes': typeof AdminReportesRoute
   '/admin/revendedores': typeof AdminRevendedoresRoute
@@ -146,6 +155,7 @@ export interface FileRouteTypes {
     | '/admin/clientes'
     | '/admin/cuentas'
     | '/admin/dashboard'
+    | '/admin/entregas'
     | '/admin/pedidos'
     | '/admin/reportes'
     | '/admin/revendedores'
@@ -161,6 +171,7 @@ export interface FileRouteTypes {
     | '/admin/clientes'
     | '/admin/cuentas'
     | '/admin/dashboard'
+    | '/admin/entregas'
     | '/admin/pedidos'
     | '/admin/reportes'
     | '/admin/revendedores'
@@ -176,6 +187,7 @@ export interface FileRouteTypes {
     | '/admin/clientes'
     | '/admin/cuentas'
     | '/admin/dashboard'
+    | '/admin/entregas'
     | '/admin/pedidos'
     | '/admin/reportes'
     | '/admin/revendedores'
@@ -192,6 +204,7 @@ export interface RootRouteChildren {
   AdminClientesRoute: typeof AdminClientesRoute
   AdminCuentasRoute: typeof AdminCuentasRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminEntregasRoute: typeof AdminEntregasRoute
   AdminPedidosRoute: typeof AdminPedidosRoute
   AdminReportesRoute: typeof AdminReportesRoute
   AdminRevendedoresRoute: typeof AdminRevendedoresRoute
@@ -264,6 +277,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPedidosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/entregas': {
+      id: '/admin/entregas'
+      path: '/admin/entregas'
+      fullPath: '/admin/entregas'
+      preLoaderRoute: typeof AdminEntregasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/dashboard': {
       id: '/admin/dashboard'
       path: '/admin/dashboard'
@@ -304,6 +324,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminClientesRoute: AdminClientesRoute,
   AdminCuentasRoute: AdminCuentasRoute,
   AdminDashboardRoute: AdminDashboardRoute,
+  AdminEntregasRoute: AdminEntregasRoute,
   AdminPedidosRoute: AdminPedidosRoute,
   AdminReportesRoute: AdminReportesRoute,
   AdminRevendedoresRoute: AdminRevendedoresRoute,
