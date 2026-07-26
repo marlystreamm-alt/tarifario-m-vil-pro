@@ -14,10 +14,12 @@ import { Route as StreamingRouteImport } from './routes/streaming'
 import { Route as ConsultarRouteImport } from './routes/consultar'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as EntregaTokenRouteImport } from './routes/entrega.$token'
 import { Route as AdminUsuariosRouteImport } from './routes/admin/usuarios'
 import { Route as AdminRevendedoresRouteImport } from './routes/admin/revendedores'
 import { Route as AdminReportesRouteImport } from './routes/admin/reportes'
 import { Route as AdminPedidosRouteImport } from './routes/admin/pedidos'
+import { Route as AdminEntregasRouteImport } from './routes/admin/entregas'
 import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
 import { Route as AdminCuentasRouteImport } from './routes/admin/cuentas'
 import { Route as AdminClientesRouteImport } from './routes/admin/clientes'
@@ -48,6 +50,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EntregaTokenRoute = EntregaTokenRouteImport.update({
+  id: '/entrega/$token',
+  path: '/entrega/$token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminUsuariosRoute = AdminUsuariosRouteImport.update({
   id: '/admin/usuarios',
   path: '/admin/usuarios',
@@ -66,6 +73,11 @@ const AdminReportesRoute = AdminReportesRouteImport.update({
 const AdminPedidosRoute = AdminPedidosRouteImport.update({
   id: '/admin/pedidos',
   path: '/admin/pedidos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminEntregasRoute = AdminEntregasRouteImport.update({
+  id: '/admin/entregas',
+  path: '/admin/entregas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
@@ -98,10 +110,12 @@ export interface FileRoutesByFullPath {
   '/admin/clientes': typeof AdminClientesRoute
   '/admin/cuentas': typeof AdminCuentasRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/entregas': typeof AdminEntregasRoute
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/reportes': typeof AdminReportesRoute
   '/admin/revendedores': typeof AdminRevendedoresRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
+  '/entrega/$token': typeof EntregaTokenRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -113,10 +127,12 @@ export interface FileRoutesByTo {
   '/admin/clientes': typeof AdminClientesRoute
   '/admin/cuentas': typeof AdminCuentasRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/entregas': typeof AdminEntregasRoute
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/reportes': typeof AdminReportesRoute
   '/admin/revendedores': typeof AdminRevendedoresRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
+  '/entrega/$token': typeof EntregaTokenRoute
   '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
@@ -129,10 +145,12 @@ export interface FileRoutesById {
   '/admin/clientes': typeof AdminClientesRoute
   '/admin/cuentas': typeof AdminCuentasRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/entregas': typeof AdminEntregasRoute
   '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/reportes': typeof AdminReportesRoute
   '/admin/revendedores': typeof AdminRevendedoresRoute
   '/admin/usuarios': typeof AdminUsuariosRoute
+  '/entrega/$token': typeof EntregaTokenRoute
   '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -146,10 +164,12 @@ export interface FileRouteTypes {
     | '/admin/clientes'
     | '/admin/cuentas'
     | '/admin/dashboard'
+    | '/admin/entregas'
     | '/admin/pedidos'
     | '/admin/reportes'
     | '/admin/revendedores'
     | '/admin/usuarios'
+    | '/entrega/$token'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -161,10 +181,12 @@ export interface FileRouteTypes {
     | '/admin/clientes'
     | '/admin/cuentas'
     | '/admin/dashboard'
+    | '/admin/entregas'
     | '/admin/pedidos'
     | '/admin/reportes'
     | '/admin/revendedores'
     | '/admin/usuarios'
+    | '/entrega/$token'
     | '/admin'
   id:
     | '__root__'
@@ -176,10 +198,12 @@ export interface FileRouteTypes {
     | '/admin/clientes'
     | '/admin/cuentas'
     | '/admin/dashboard'
+    | '/admin/entregas'
     | '/admin/pedidos'
     | '/admin/reportes'
     | '/admin/revendedores'
     | '/admin/usuarios'
+    | '/entrega/$token'
     | '/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -192,10 +216,12 @@ export interface RootRouteChildren {
   AdminClientesRoute: typeof AdminClientesRoute
   AdminCuentasRoute: typeof AdminCuentasRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminEntregasRoute: typeof AdminEntregasRoute
   AdminPedidosRoute: typeof AdminPedidosRoute
   AdminReportesRoute: typeof AdminReportesRoute
   AdminRevendedoresRoute: typeof AdminRevendedoresRoute
   AdminUsuariosRoute: typeof AdminUsuariosRoute
+  EntregaTokenRoute: typeof EntregaTokenRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -236,6 +262,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/entrega/$token': {
+      id: '/entrega/$token'
+      path: '/entrega/$token'
+      fullPath: '/entrega/$token'
+      preLoaderRoute: typeof EntregaTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/usuarios': {
       id: '/admin/usuarios'
       path: '/admin/usuarios'
@@ -262,6 +295,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/pedidos'
       fullPath: '/admin/pedidos'
       preLoaderRoute: typeof AdminPedidosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/entregas': {
+      id: '/admin/entregas'
+      path: '/admin/entregas'
+      fullPath: '/admin/entregas'
+      preLoaderRoute: typeof AdminEntregasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/dashboard': {
@@ -304,10 +344,12 @@ const rootRouteChildren: RootRouteChildren = {
   AdminClientesRoute: AdminClientesRoute,
   AdminCuentasRoute: AdminCuentasRoute,
   AdminDashboardRoute: AdminDashboardRoute,
+  AdminEntregasRoute: AdminEntregasRoute,
   AdminPedidosRoute: AdminPedidosRoute,
   AdminReportesRoute: AdminReportesRoute,
   AdminRevendedoresRoute: AdminRevendedoresRoute,
   AdminUsuariosRoute: AdminUsuariosRoute,
+  EntregaTokenRoute: EntregaTokenRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 export const routeTree = rootRouteImport
