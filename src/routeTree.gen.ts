@@ -49,44 +49,44 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminUsuariosRoute = AdminUsuariosRouteImport.update({
-  id: '/admin/usuarios',
-  path: '/admin/usuarios',
-  getParentRoute: () => rootRouteImport,
+  id: '/usuarios',
+  path: '/usuarios',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminRevendedoresRoute = AdminRevendedoresRouteImport.update({
-  id: '/admin/revendedores',
-  path: '/admin/revendedores',
-  getParentRoute: () => rootRouteImport,
+  id: '/revendedores',
+  path: '/revendedores',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminReportesRoute = AdminReportesRouteImport.update({
-  id: '/admin/reportes',
-  path: '/admin/reportes',
-  getParentRoute: () => rootRouteImport,
+  id: '/reportes',
+  path: '/reportes',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminPedidosRoute = AdminPedidosRouteImport.update({
-  id: '/admin/pedidos',
-  path: '/admin/pedidos',
-  getParentRoute: () => rootRouteImport,
+  id: '/pedidos',
+  path: '/pedidos',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
-  id: '/admin/dashboard',
-  path: '/admin/dashboard',
-  getParentRoute: () => rootRouteImport,
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminCuentasRoute = AdminCuentasRouteImport.update({
-  id: '/admin/cuentas',
-  path: '/admin/cuentas',
-  getParentRoute: () => rootRouteImport,
+  id: '/cuentas',
+  path: '/cuentas',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminClientesRoute = AdminClientesRouteImport.update({
-  id: '/admin/clientes',
-  path: '/admin/clientes',
-  getParentRoute: () => rootRouteImport,
+  id: '/clientes',
+  path: '/clientes',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminAnunciosRoute = AdminAnunciosRouteImport.update({
-  id: '/admin/anuncios',
-  path: '/admin/anuncios',
-  getParentRoute: () => rootRouteImport,
+  id: '/anuncios',
+  path: '/anuncios',
+  getParentRoute: () => AdminRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -188,14 +188,6 @@ export interface RootRouteChildren {
   ConsultarRoute: typeof ConsultarRoute
   StreamingRoute: typeof StreamingRoute
   TramitesRoute: typeof TramitesRoute
-  AdminAnunciosRoute: typeof AdminAnunciosRoute
-  AdminClientesRoute: typeof AdminClientesRoute
-  AdminCuentasRoute: typeof AdminCuentasRoute
-  AdminDashboardRoute: typeof AdminDashboardRoute
-  AdminPedidosRoute: typeof AdminPedidosRoute
-  AdminReportesRoute: typeof AdminReportesRoute
-  AdminRevendedoresRoute: typeof AdminRevendedoresRoute
-  AdminUsuariosRoute: typeof AdminUsuariosRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -238,59 +230,59 @@ declare module '@tanstack/react-router' {
     }
     '/admin/usuarios': {
       id: '/admin/usuarios'
-      path: '/admin/usuarios'
+      path: '/usuarios'
       fullPath: '/admin/usuarios'
       preLoaderRoute: typeof AdminUsuariosRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/revendedores': {
       id: '/admin/revendedores'
-      path: '/admin/revendedores'
+      path: '/revendedores'
       fullPath: '/admin/revendedores'
       preLoaderRoute: typeof AdminRevendedoresRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/reportes': {
       id: '/admin/reportes'
-      path: '/admin/reportes'
+      path: '/reportes'
       fullPath: '/admin/reportes'
       preLoaderRoute: typeof AdminReportesRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/pedidos': {
       id: '/admin/pedidos'
-      path: '/admin/pedidos'
+      path: '/pedidos'
       fullPath: '/admin/pedidos'
       preLoaderRoute: typeof AdminPedidosRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/dashboard': {
       id: '/admin/dashboard'
-      path: '/admin/dashboard'
+      path: '/dashboard'
       fullPath: '/admin/dashboard'
       preLoaderRoute: typeof AdminDashboardRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/cuentas': {
       id: '/admin/cuentas'
-      path: '/admin/cuentas'
+      path: '/cuentas'
       fullPath: '/admin/cuentas'
       preLoaderRoute: typeof AdminCuentasRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/clientes': {
       id: '/admin/clientes'
-      path: '/admin/clientes'
+      path: '/clientes'
       fullPath: '/admin/clientes'
       preLoaderRoute: typeof AdminClientesRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/anuncios': {
       id: '/admin/anuncios'
-      path: '/admin/anuncios'
+      path: '/anuncios'
       fullPath: '/admin/anuncios'
       preLoaderRoute: typeof AdminAnunciosRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
   }
 }
@@ -300,16 +292,18 @@ const rootRouteChildren: RootRouteChildren = {
   ConsultarRoute: ConsultarRoute,
   StreamingRoute: StreamingRoute,
   TramitesRoute: TramitesRoute,
-  AdminAnunciosRoute: AdminAnunciosRoute,
-  AdminClientesRoute: AdminClientesRoute,
-  AdminCuentasRoute: AdminCuentasRoute,
-  AdminDashboardRoute: AdminDashboardRoute,
-  AdminPedidosRoute: AdminPedidosRoute,
-  AdminReportesRoute: AdminReportesRoute,
-  AdminRevendedoresRoute: AdminRevendedoresRoute,
-  AdminUsuariosRoute: AdminUsuariosRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
