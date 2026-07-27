@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Package, Users, RefreshCw, Plus, UserCheck, Users2, TrendingUp, Megaphone, ShieldCheck, FileLock2 } from "lucide-react";
 
-export const Route = createFileRoute("/admin/dashboard") ({
+export const Route = createFileRoute("/_authenticated/admin/dashboard") ({
   head: () => ({
     meta: [
       { title: "Dashboard — MA² Digital" },

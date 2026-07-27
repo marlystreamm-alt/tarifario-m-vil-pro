@@ -21,7 +21,7 @@ import {
   type PermissionKey,
 } from "@/lib/users";
 
-export const Route = createFileRoute("/admin/usuarios")({
+export const Route = createFileRoute("/_authenticated/admin/usuarios")({
   head: () => ({
     meta: [
       { title: "Usuarios — MA² Digital" },

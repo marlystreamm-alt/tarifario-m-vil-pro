@@ -11,7 +11,7 @@ import {
 } from "@/lib/deliveries";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
-export const Route = createFileRoute("/admin/entregas")({
+export const Route = createFileRoute("/_authenticated/admin/entregas")({
   head: () => ({
     meta: [
       { title: "Entrega Protegida — MA² Digital" },

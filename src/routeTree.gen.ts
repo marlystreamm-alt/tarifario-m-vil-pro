@@ -13,17 +13,17 @@ import { Route as TramitesRouteImport } from './routes/tramites'
 import { Route as StreamingRouteImport } from './routes/streaming'
 import { Route as ConsultarRouteImport } from './routes/consultar'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as EntregaTokenRouteImport } from './routes/entrega.$token'
-import { Route as AdminUsuariosRouteImport } from './routes/admin/usuarios'
-import { Route as AdminRevendedoresRouteImport } from './routes/admin/revendedores'
-import { Route as AdminReportesRouteImport } from './routes/admin/reportes'
-import { Route as AdminPedidosRouteImport } from './routes/admin/pedidos'
-import { Route as AdminEntregasRouteImport } from './routes/admin/entregas'
-import { Route as AdminDashboardRouteImport } from './routes/admin/dashboard'
-import { Route as AdminCuentasRouteImport } from './routes/admin/cuentas'
-import { Route as AdminClientesRouteImport } from './routes/admin/clientes'
-import { Route as AdminAnunciosRouteImport } from './routes/admin/anuncios'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
+import { Route as AuthenticatedAdminUsuariosRouteImport } from './routes/_authenticated/admin/usuarios'
+import { Route as AuthenticatedAdminRevendedoresRouteImport } from './routes/_authenticated/admin/revendedores'
+import { Route as AuthenticatedAdminReportesRouteImport } from './routes/_authenticated/admin/reportes'
+import { Route as AuthenticatedAdminPedidosRouteImport } from './routes/_authenticated/admin/pedidos'
+import { Route as AuthenticatedAdminEntregasRouteImport } from './routes/_authenticated/admin/entregas'
+import { Route as AuthenticatedAdminDashboardRouteImport } from './routes/_authenticated/admin/dashboard'
+import { Route as AuthenticatedAdminCuentasRouteImport } from './routes/_authenticated/admin/cuentas'
+import { Route as AuthenticatedAdminClientesRouteImport } from './routes/_authenticated/admin/clientes'
+import { Route as AuthenticatedAdminAnunciosRouteImport } from './routes/_authenticated/admin/anuncios'
 
 const TramitesRoute = TramitesRouteImport.update({
   id: '/tramites',
@@ -45,95 +45,104 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminIndexRoute = AdminIndexRouteImport.update({
-  id: '/admin/',
-  path: '/admin/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const EntregaTokenRoute = EntregaTokenRouteImport.update({
   id: '/entrega/$token',
   path: '/entrega/$token',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminUsuariosRoute = AdminUsuariosRouteImport.update({
-  id: '/admin/usuarios',
-  path: '/admin/usuarios',
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/_authenticated/admin/',
+  path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminRevendedoresRoute = AdminRevendedoresRouteImport.update({
-  id: '/admin/revendedores',
-  path: '/admin/revendedores',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminReportesRoute = AdminReportesRouteImport.update({
-  id: '/admin/reportes',
-  path: '/admin/reportes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminPedidosRoute = AdminPedidosRouteImport.update({
-  id: '/admin/pedidos',
-  path: '/admin/pedidos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminEntregasRoute = AdminEntregasRouteImport.update({
-  id: '/admin/entregas',
-  path: '/admin/entregas',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminDashboardRoute = AdminDashboardRouteImport.update({
-  id: '/admin/dashboard',
-  path: '/admin/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminCuentasRoute = AdminCuentasRouteImport.update({
-  id: '/admin/cuentas',
-  path: '/admin/cuentas',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminClientesRoute = AdminClientesRouteImport.update({
-  id: '/admin/clientes',
-  path: '/admin/clientes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminAnunciosRoute = AdminAnunciosRouteImport.update({
-  id: '/admin/anuncios',
-  path: '/admin/anuncios',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const AuthenticatedAdminUsuariosRoute =
+  AuthenticatedAdminUsuariosRouteImport.update({
+    id: '/_authenticated/admin/usuarios',
+    path: '/admin/usuarios',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedAdminRevendedoresRoute =
+  AuthenticatedAdminRevendedoresRouteImport.update({
+    id: '/_authenticated/admin/revendedores',
+    path: '/admin/revendedores',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedAdminReportesRoute =
+  AuthenticatedAdminReportesRouteImport.update({
+    id: '/_authenticated/admin/reportes',
+    path: '/admin/reportes',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedAdminPedidosRoute =
+  AuthenticatedAdminPedidosRouteImport.update({
+    id: '/_authenticated/admin/pedidos',
+    path: '/admin/pedidos',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedAdminEntregasRoute =
+  AuthenticatedAdminEntregasRouteImport.update({
+    id: '/_authenticated/admin/entregas',
+    path: '/admin/entregas',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedAdminDashboardRoute =
+  AuthenticatedAdminDashboardRouteImport.update({
+    id: '/_authenticated/admin/dashboard',
+    path: '/admin/dashboard',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedAdminCuentasRoute =
+  AuthenticatedAdminCuentasRouteImport.update({
+    id: '/_authenticated/admin/cuentas',
+    path: '/admin/cuentas',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedAdminClientesRoute =
+  AuthenticatedAdminClientesRouteImport.update({
+    id: '/_authenticated/admin/clientes',
+    path: '/admin/clientes',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedAdminAnunciosRoute =
+  AuthenticatedAdminAnunciosRouteImport.update({
+    id: '/_authenticated/admin/anuncios',
+    path: '/admin/anuncios',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/consultar': typeof ConsultarRoute
   '/streaming': typeof StreamingRoute
   '/tramites': typeof TramitesRoute
-  '/admin/anuncios': typeof AdminAnunciosRoute
-  '/admin/clientes': typeof AdminClientesRoute
-  '/admin/cuentas': typeof AdminCuentasRoute
-  '/admin/dashboard': typeof AdminDashboardRoute
-  '/admin/entregas': typeof AdminEntregasRoute
-  '/admin/pedidos': typeof AdminPedidosRoute
-  '/admin/reportes': typeof AdminReportesRoute
-  '/admin/revendedores': typeof AdminRevendedoresRoute
-  '/admin/usuarios': typeof AdminUsuariosRoute
   '/entrega/$token': typeof EntregaTokenRoute
-  '/admin/': typeof AdminIndexRoute
+  '/admin/anuncios': typeof AuthenticatedAdminAnunciosRoute
+  '/admin/clientes': typeof AuthenticatedAdminClientesRoute
+  '/admin/cuentas': typeof AuthenticatedAdminCuentasRoute
+  '/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
+  '/admin/entregas': typeof AuthenticatedAdminEntregasRoute
+  '/admin/pedidos': typeof AuthenticatedAdminPedidosRoute
+  '/admin/reportes': typeof AuthenticatedAdminReportesRoute
+  '/admin/revendedores': typeof AuthenticatedAdminRevendedoresRoute
+  '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/consultar': typeof ConsultarRoute
   '/streaming': typeof StreamingRoute
   '/tramites': typeof TramitesRoute
-  '/admin/anuncios': typeof AdminAnunciosRoute
-  '/admin/clientes': typeof AdminClientesRoute
-  '/admin/cuentas': typeof AdminCuentasRoute
-  '/admin/dashboard': typeof AdminDashboardRoute
-  '/admin/entregas': typeof AdminEntregasRoute
-  '/admin/pedidos': typeof AdminPedidosRoute
-  '/admin/reportes': typeof AdminReportesRoute
-  '/admin/revendedores': typeof AdminRevendedoresRoute
-  '/admin/usuarios': typeof AdminUsuariosRoute
   '/entrega/$token': typeof EntregaTokenRoute
-  '/admin': typeof AdminIndexRoute
+  '/admin/anuncios': typeof AuthenticatedAdminAnunciosRoute
+  '/admin/clientes': typeof AuthenticatedAdminClientesRoute
+  '/admin/cuentas': typeof AuthenticatedAdminCuentasRoute
+  '/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
+  '/admin/entregas': typeof AuthenticatedAdminEntregasRoute
+  '/admin/pedidos': typeof AuthenticatedAdminPedidosRoute
+  '/admin/reportes': typeof AuthenticatedAdminReportesRoute
+  '/admin/revendedores': typeof AuthenticatedAdminRevendedoresRoute
+  '/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -141,17 +150,17 @@ export interface FileRoutesById {
   '/consultar': typeof ConsultarRoute
   '/streaming': typeof StreamingRoute
   '/tramites': typeof TramitesRoute
-  '/admin/anuncios': typeof AdminAnunciosRoute
-  '/admin/clientes': typeof AdminClientesRoute
-  '/admin/cuentas': typeof AdminCuentasRoute
-  '/admin/dashboard': typeof AdminDashboardRoute
-  '/admin/entregas': typeof AdminEntregasRoute
-  '/admin/pedidos': typeof AdminPedidosRoute
-  '/admin/reportes': typeof AdminReportesRoute
-  '/admin/revendedores': typeof AdminRevendedoresRoute
-  '/admin/usuarios': typeof AdminUsuariosRoute
   '/entrega/$token': typeof EntregaTokenRoute
-  '/admin/': typeof AdminIndexRoute
+  '/_authenticated/admin/anuncios': typeof AuthenticatedAdminAnunciosRoute
+  '/_authenticated/admin/clientes': typeof AuthenticatedAdminClientesRoute
+  '/_authenticated/admin/cuentas': typeof AuthenticatedAdminCuentasRoute
+  '/_authenticated/admin/dashboard': typeof AuthenticatedAdminDashboardRoute
+  '/_authenticated/admin/entregas': typeof AuthenticatedAdminEntregasRoute
+  '/_authenticated/admin/pedidos': typeof AuthenticatedAdminPedidosRoute
+  '/_authenticated/admin/reportes': typeof AuthenticatedAdminReportesRoute
+  '/_authenticated/admin/revendedores': typeof AuthenticatedAdminRevendedoresRoute
+  '/_authenticated/admin/usuarios': typeof AuthenticatedAdminUsuariosRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/consultar'
     | '/streaming'
     | '/tramites'
+    | '/entrega/$token'
     | '/admin/anuncios'
     | '/admin/clientes'
     | '/admin/cuentas'
@@ -169,7 +179,6 @@ export interface FileRouteTypes {
     | '/admin/reportes'
     | '/admin/revendedores'
     | '/admin/usuarios'
-    | '/entrega/$token'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -177,6 +186,7 @@ export interface FileRouteTypes {
     | '/consultar'
     | '/streaming'
     | '/tramites'
+    | '/entrega/$token'
     | '/admin/anuncios'
     | '/admin/clientes'
     | '/admin/cuentas'
@@ -186,7 +196,6 @@ export interface FileRouteTypes {
     | '/admin/reportes'
     | '/admin/revendedores'
     | '/admin/usuarios'
-    | '/entrega/$token'
     | '/admin'
   id:
     | '__root__'
@@ -194,17 +203,17 @@ export interface FileRouteTypes {
     | '/consultar'
     | '/streaming'
     | '/tramites'
-    | '/admin/anuncios'
-    | '/admin/clientes'
-    | '/admin/cuentas'
-    | '/admin/dashboard'
-    | '/admin/entregas'
-    | '/admin/pedidos'
-    | '/admin/reportes'
-    | '/admin/revendedores'
-    | '/admin/usuarios'
     | '/entrega/$token'
-    | '/admin/'
+    | '/_authenticated/admin/anuncios'
+    | '/_authenticated/admin/clientes'
+    | '/_authenticated/admin/cuentas'
+    | '/_authenticated/admin/dashboard'
+    | '/_authenticated/admin/entregas'
+    | '/_authenticated/admin/pedidos'
+    | '/_authenticated/admin/reportes'
+    | '/_authenticated/admin/revendedores'
+    | '/_authenticated/admin/usuarios'
+    | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -212,17 +221,17 @@ export interface RootRouteChildren {
   ConsultarRoute: typeof ConsultarRoute
   StreamingRoute: typeof StreamingRoute
   TramitesRoute: typeof TramitesRoute
-  AdminAnunciosRoute: typeof AdminAnunciosRoute
-  AdminClientesRoute: typeof AdminClientesRoute
-  AdminCuentasRoute: typeof AdminCuentasRoute
-  AdminDashboardRoute: typeof AdminDashboardRoute
-  AdminEntregasRoute: typeof AdminEntregasRoute
-  AdminPedidosRoute: typeof AdminPedidosRoute
-  AdminReportesRoute: typeof AdminReportesRoute
-  AdminRevendedoresRoute: typeof AdminRevendedoresRoute
-  AdminUsuariosRoute: typeof AdminUsuariosRoute
   EntregaTokenRoute: typeof EntregaTokenRoute
-  AdminIndexRoute: typeof AdminIndexRoute
+  AuthenticatedAdminAnunciosRoute: typeof AuthenticatedAdminAnunciosRoute
+  AuthenticatedAdminClientesRoute: typeof AuthenticatedAdminClientesRoute
+  AuthenticatedAdminCuentasRoute: typeof AuthenticatedAdminCuentasRoute
+  AuthenticatedAdminDashboardRoute: typeof AuthenticatedAdminDashboardRoute
+  AuthenticatedAdminEntregasRoute: typeof AuthenticatedAdminEntregasRoute
+  AuthenticatedAdminPedidosRoute: typeof AuthenticatedAdminPedidosRoute
+  AuthenticatedAdminReportesRoute: typeof AuthenticatedAdminReportesRoute
+  AuthenticatedAdminRevendedoresRoute: typeof AuthenticatedAdminRevendedoresRoute
+  AuthenticatedAdminUsuariosRoute: typeof AuthenticatedAdminUsuariosRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -255,13 +264,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/': {
-      id: '/admin/'
-      path: '/admin'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/entrega/$token': {
       id: '/entrega/$token'
       path: '/entrega/$token'
@@ -269,67 +271,74 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EntregaTokenRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/usuarios': {
-      id: '/admin/usuarios'
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin/usuarios': {
+      id: '/_authenticated/admin/usuarios'
       path: '/admin/usuarios'
       fullPath: '/admin/usuarios'
-      preLoaderRoute: typeof AdminUsuariosRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminUsuariosRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/revendedores': {
-      id: '/admin/revendedores'
+    '/_authenticated/admin/revendedores': {
+      id: '/_authenticated/admin/revendedores'
       path: '/admin/revendedores'
       fullPath: '/admin/revendedores'
-      preLoaderRoute: typeof AdminRevendedoresRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminRevendedoresRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/reportes': {
-      id: '/admin/reportes'
+    '/_authenticated/admin/reportes': {
+      id: '/_authenticated/admin/reportes'
       path: '/admin/reportes'
       fullPath: '/admin/reportes'
-      preLoaderRoute: typeof AdminReportesRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminReportesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/pedidos': {
-      id: '/admin/pedidos'
+    '/_authenticated/admin/pedidos': {
+      id: '/_authenticated/admin/pedidos'
       path: '/admin/pedidos'
       fullPath: '/admin/pedidos'
-      preLoaderRoute: typeof AdminPedidosRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminPedidosRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/entregas': {
-      id: '/admin/entregas'
+    '/_authenticated/admin/entregas': {
+      id: '/_authenticated/admin/entregas'
       path: '/admin/entregas'
       fullPath: '/admin/entregas'
-      preLoaderRoute: typeof AdminEntregasRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminEntregasRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/dashboard': {
-      id: '/admin/dashboard'
+    '/_authenticated/admin/dashboard': {
+      id: '/_authenticated/admin/dashboard'
       path: '/admin/dashboard'
       fullPath: '/admin/dashboard'
-      preLoaderRoute: typeof AdminDashboardRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/cuentas': {
-      id: '/admin/cuentas'
+    '/_authenticated/admin/cuentas': {
+      id: '/_authenticated/admin/cuentas'
       path: '/admin/cuentas'
       fullPath: '/admin/cuentas'
-      preLoaderRoute: typeof AdminCuentasRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminCuentasRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/clientes': {
-      id: '/admin/clientes'
+    '/_authenticated/admin/clientes': {
+      id: '/_authenticated/admin/clientes'
       path: '/admin/clientes'
       fullPath: '/admin/clientes'
-      preLoaderRoute: typeof AdminClientesRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminClientesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/anuncios': {
-      id: '/admin/anuncios'
+    '/_authenticated/admin/anuncios': {
+      id: '/_authenticated/admin/anuncios'
       path: '/admin/anuncios'
       fullPath: '/admin/anuncios'
-      preLoaderRoute: typeof AdminAnunciosRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminAnunciosRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -340,17 +349,17 @@ const rootRouteChildren: RootRouteChildren = {
   ConsultarRoute: ConsultarRoute,
   StreamingRoute: StreamingRoute,
   TramitesRoute: TramitesRoute,
-  AdminAnunciosRoute: AdminAnunciosRoute,
-  AdminClientesRoute: AdminClientesRoute,
-  AdminCuentasRoute: AdminCuentasRoute,
-  AdminDashboardRoute: AdminDashboardRoute,
-  AdminEntregasRoute: AdminEntregasRoute,
-  AdminPedidosRoute: AdminPedidosRoute,
-  AdminReportesRoute: AdminReportesRoute,
-  AdminRevendedoresRoute: AdminRevendedoresRoute,
-  AdminUsuariosRoute: AdminUsuariosRoute,
   EntregaTokenRoute: EntregaTokenRoute,
-  AdminIndexRoute: AdminIndexRoute,
+  AuthenticatedAdminAnunciosRoute: AuthenticatedAdminAnunciosRoute,
+  AuthenticatedAdminClientesRoute: AuthenticatedAdminClientesRoute,
+  AuthenticatedAdminCuentasRoute: AuthenticatedAdminCuentasRoute,
+  AuthenticatedAdminDashboardRoute: AuthenticatedAdminDashboardRoute,
+  AuthenticatedAdminEntregasRoute: AuthenticatedAdminEntregasRoute,
+  AuthenticatedAdminPedidosRoute: AuthenticatedAdminPedidosRoute,
+  AuthenticatedAdminReportesRoute: AuthenticatedAdminReportesRoute,
+  AuthenticatedAdminRevendedoresRoute: AuthenticatedAdminRevendedoresRoute,
+  AuthenticatedAdminUsuariosRoute: AuthenticatedAdminUsuariosRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
