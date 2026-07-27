@@ -143,3 +143,14 @@
     color: var(--color-foreground);
   }
 }
+
+/* Campo de formulario base del área privada */
+@utility input-ma2 {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--background);
+  padding: 0.55rem 0.75rem;
+  font-size: 0.875rem;
+  outline: none;
+}
