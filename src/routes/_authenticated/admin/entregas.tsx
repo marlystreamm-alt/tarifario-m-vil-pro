@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { toast } from "sonner";
+import { useStepUp } from "@/components/StepUpDialog";
 import {
   ArrowLeft, Copy, Eye, History, Lock, Pencil, Plus, Search, Share2, ShieldOff, Trash2, Unlock, X,
 } from "lucide-react";
@@ -11,7 +12,7 @@ import {
 } from "@/lib/deliveries";
 import { buildWhatsAppUrl } from "@/lib/whatsapp";
 
-export const Route = createFileRoute("/admin/entregas")({
+export const Route = createFileRoute("/_authenticated/admin/entregas")({
   head: () => ({
     meta: [
       { title: "Entrega Protegida — MA² Digital" },
@@ -62,6 +63,8 @@ function AdminEntregas() {
   const [draft, setDraft] = useState<DeliveryInput>(emptyDeliveryInput());
   const [created, setCreated] = useState<Delivery | null>(null);
   const [logFor, setLogFor] = useState<Delivery | null>(null);
+
+  const { request, dialog } = useStepUp();
 
   const refresh = () => setItems(listDeliveries());
 
@@ -131,6 +134,11 @@ function AdminEntregas() {
   }
 
   async function copyLink(d: Delivery) {
+    // Revelar el enlace real es una acción crítica: exige 2FA reciente y rol autorizado.
+    if (!(await request("reveal_provider_link", { folio: d.folio }))) {
+      toast.error("No autorizado para revelar el enlace. Verifica tu segundo factor.");
+      return;
+    }
     const url = deliveryPublicUrl(d.token);
     try {
       await navigator.clipboard.writeText(url);
@@ -148,6 +156,7 @@ function AdminEntregas() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      {dialog}
       <header className="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur">
         <div className="mx-auto flex max-w-xl items-center gap-2 px-4 py-3">
           <Link to="/admin/dashboard" className="grid h-8 w-8 place-items-center rounded-full hover:bg-secondary">
@@ -253,7 +262,7 @@ function AdminEntregas() {
                     {d.status === "blocked" ? <><Unlock className="h-3 w-3" /> Desbloquear</> : <><Lock className="h-3 w-3" /> Bloquear</>}
                   </button>
                   <button
-                    onClick={() => { if (confirm("¿Revocar esta entrega? El enlace dejará de funcionar.")) { setDeliveryStatus(d.id, "revoked"); refresh(); } }}
+                    onClick={async () => { if (!confirm("¿Revocar esta entrega? El enlace dejará de funcionar.")) return; if (!(await request("delivery_revoke", { folio: d.folio }))) { toast.error("Revocación no autorizada."); return; } setDeliveryStatus(d.id, "revoked"); refresh(); }}
                     className="inline-flex items-center gap-1 rounded-full bg-secondary px-2.5 py-1 text-[11px] font-medium active:scale-95"
                   >
                     <ShieldOff className="h-3 w-3" /> Revocar
@@ -262,7 +271,7 @@ function AdminEntregas() {
                     <History className="h-3 w-3" /> Historial ({d.accessLog.length})
                   </button>
                   <button
-                    onClick={() => { if (confirm(`¿Eliminar la entrega ${d.folio}?`)) { deleteDelivery(d.id); refresh(); toast.success("Entrega eliminada."); } }}
+                    onClick={async () => { if (!confirm(`¿Eliminar la entrega ${d.folio}?`)) return; if (!(await request("data_delete", { folio: d.folio }))) { toast.error("Eliminación no autorizada."); return; } deleteDelivery(d.id); refresh(); toast.success("Entrega eliminada."); }}
                     className="inline-flex items-center gap-1 rounded-full bg-destructive/10 px-2.5 py-1 text-[11px] font-medium text-destructive active:scale-95"
                   >
                     <Trash2 className="h-3 w-3" /> Eliminar

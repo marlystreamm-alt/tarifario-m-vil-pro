@@ -15,7 +15,7 @@ import {
   type AnnouncementType,
 } from "@/lib/announcements";
 
-export const Route = createFileRoute("/admin/anuncios")({
+export const Route = createFileRoute("/_authenticated/admin/anuncios")({
   head: () => ({
     meta: [
       { title: "Anuncios — MA² Digital" },

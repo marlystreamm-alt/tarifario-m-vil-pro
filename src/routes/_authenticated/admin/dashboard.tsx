@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Package, Users, RefreshCw, Plus, UserCheck, Users2, TrendingUp, Megaphone, ShieldCheck, FileLock2 } from "lucide-react";
+import { Package, Users, RefreshCw, Plus, UserCheck, Users2, TrendingUp, Megaphone, ShieldCheck, FileLock2, DatabaseBackup } from "lucide-react";
 
-export const Route = createFileRoute("/admin/dashboard") ({
+export const Route = createFileRoute("/_authenticated/admin/dashboard") ({
   head: () => ({
     meta: [
       { title: "Dashboard — MA² Digital" },
@@ -58,6 +58,8 @@ function AdminDashboard() {
     { icon: <UserCheck className="h-5 w-5" />, label: "Asignar cuenta", to: "/admin/cuentas" },
     { icon: <Users className="h-5 w-5" />, label: "Clientes", to: "/admin/clientes" },
     { icon: <TrendingUp className="h-5 w-5" />, label: "Reportes", to: "/admin/reportes" },
+    { icon: <ShieldCheck className="h-5 w-5" />, label: "Seguridad", to: "/admin/seguridad" },
+    { icon: <DatabaseBackup className="h-5 w-5" />, label: "Respaldos", to: "/admin/respaldos" },
     { icon: <Megaphone className="h-5 w-5" />, label: "Anuncios", to: "/admin/anuncios" },
     { icon: <ShieldCheck className="h-5 w-5" />, label: "Usuarios", to: "/admin/usuarios" },
     { icon: <FileLock2 className="h-5 w-5" />, label: "Entrega protegida", to: "/admin/entregas" },

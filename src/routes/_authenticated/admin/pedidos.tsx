@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft } from "lucide-react";
 
-export const Route = createFileRoute("/admin/pedidos") ({
+export const Route = createFileRoute("/_authenticated/admin/pedidos") ({
   head: () => ({
     meta: [
       { title: "Pedidos — MA² Digital" },
